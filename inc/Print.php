@@ -12,12 +12,12 @@ class P {
 		$totalScoresFull = current($GLOBALS['db']->fetch('SELECT SUM(playcount_std) + SUM(playcount_taiko) + SUM(playcount_ctb) + SUM(playcount_mania) FROM users_stats WHERE 1'));
 		$totalScores = number_format($totalScoresFull  / 1000000, 2) . "m";
 		// $betaKeysLeft = "∞";
-		/*$totalPPQuery = $GLOBALS['db']->fetch("SELECT SUM(pp) FROM scores WHERE completed = 3 LIMIT 1");
+		$totalPPQuery = $GLOBALS['db']->fetch("SELECT SUM(pp) FROM scores WHERE completed = 3 LIMIT 1");
 		$totalPP = 0;
 		foreach ($totalPPQuery as $pp) {
 			$totalPP += $pp;
 		}
-		$totalPP = number_format($totalPP);*/
+		$totalPP = number_format($totalPP);
 		$totalPP = "🍆";
 		$recentPlays = $GLOBALS['db']->fetchAll('
 		SELECT
@@ -30,7 +30,7 @@ class P {
 		ORDER BY scores.id DESC
 		LIMIT 10');
 		$topPlays = [];
-		/*$topPlays = $GLOBALS['db']->fetchAll('SELECT
+		$topPlays = $GLOBALS['db']->fetchAll('SELECT
 			beatmaps.song_name, scores.beatmap_md5, users.username,
 			scores.userid, scores.time, scores.score, scores.pp,
 			scores.play_mode, scores.mods
@@ -38,7 +38,7 @@ class P {
 		LEFT JOIN beatmaps ON beatmaps.beatmap_md5 = scores.beatmap_md5
 		LEFT JOIN users ON users.id = scores.userid
 		WHERE users.privileges & 1 > 0
-		ORDER BY scores.pp DESC LIMIT 30');*/
+		ORDER BY scores.pp DESC LIMIT 10');
 		$onlineUsers = getJsonCurl("http://127.0.0.1:5001/api/v1/onlineUsers");
 		if ($onlineUsers == false) {
 			$onlineUsers = 0;
